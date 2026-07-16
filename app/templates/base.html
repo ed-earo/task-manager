@@ -9,13 +9,36 @@
 </head>
 <body>
 
-<nav class="navbar navbar-dark bg-primary">
-    <div class="container">
-        <span class="navbar-brand">
-            Task Manager
+<div class="d-flex align-items-center">
+
+    <a class="navbar-brand" href="/">
+        Task Manager
+    </a>
+
+
+    {% if current_user.is_authenticated %}
+
+        <span class="text-white me-3">
+            {{ current_user.username }}
         </span>
-    </div>
-</nav>
+
+        <a class="btn btn-light" href="/logout">
+            Logout
+        </a>
+
+    {% else %}
+
+        <a class="btn btn-light me-2" href="/login">
+            Login
+        </a>
+
+        <a class="btn btn-light" href="/register">
+            Register
+        </a>
+
+    {% endif %}
+
+</div>
 
 
 <main class="container mt-5">
