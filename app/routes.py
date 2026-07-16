@@ -87,7 +87,27 @@ def register():
         email = request.form.get("email")
         password = request.form.get("password")
 
+
+        existing_user = User.query.filter(
+            (User.username == username) |
+            (User.email == email)
+        ).first()
+
+
+        if existing_user:
+
+            flash(
+                "Username or email already exists.",
+                "danger"
+            )
+
+            return redirect(
+                url_for("main.register")
+            )
+
+
         hashed_password = generate_password_hash(password)
+
 
         user = User(
             username=username,
@@ -95,12 +115,21 @@ def register():
             password=hashed_password
         )
 
+
         db.session.add(user)
         db.session.commit()
 
-        flash("Account created successfully!", "success")
 
-        return redirect(url_for("main.login"))
+        flash(
+            "Account created successfully!",
+            "success"
+        )
+
+
+        return redirect(
+            url_for("main.login")
+        )
+
 
     return render_template("register.html")
 
