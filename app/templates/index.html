@@ -25,8 +25,25 @@ Tasks
 <ul>
     {% for task in tasks %}
         <li>
-            {{ task.title }}
+            {% if task.completed %}
+                <s>{{ task.title }}</s>
+            {% else %}
+                {{ task.title }}
+            {% endif %}
+
+            <a href="{{ url_for('main.complete_task', id=task.id) }}">
+                {% if task.completed %}
+                    Undo
+                {% else %}
+                    Complete
+                {% endif %}
+            </a>
+
+            <a href="{{ url_for('main.delete_task', id=task.id) }}">
+                Delete
+            </a>
         </li>
+
     {% else %}
         <li>No tasks yet.</li>
     {% endfor %}

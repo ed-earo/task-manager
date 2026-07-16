@@ -22,3 +22,24 @@ def add_task():
         db.session.commit()
 
     return redirect(url_for("main.home"))
+
+
+@main.route("/complete/<int:id>")
+def complete_task(id):
+    task = Task.query.get_or_404(id)
+
+    task.completed = not task.completed
+
+    db.session.commit()
+
+    return redirect(url_for("main.home"))
+
+
+@main.route("/delete/<int:id>")
+def delete_task(id):
+    task = Task.query.get_or_404(id)
+
+    db.session.delete(task)
+    db.session.commit()
+
+    return redirect(url_for("main.home"))
