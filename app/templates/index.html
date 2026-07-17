@@ -52,6 +52,13 @@ Tasks
 
             <div>
 
+                <a
+                class="btn btn-sm btn-warning"
+                href="{{ url_for('tasks.edit_task', id=task.id) }}">
+                Edit
+                </a>
+
+
                 <a 
                 class="btn btn-sm btn-success"
                 href="{{ url_for('tasks.complete_task', id=task.id) }}">

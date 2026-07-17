@@ -30,6 +30,7 @@ class RegistrationForm(FlaskForm):
 
     submit = SubmitField("Register")
 
+
 class LoginForm(FlaskForm):
     email = StringField(
         "Email",
@@ -47,3 +48,16 @@ class LoginForm(FlaskForm):
     )
 
     submit = SubmitField("Login")
+
+
+class TaskForm(FlaskForm):
+
+    title = StringField(
+        "Task",
+        validators=[
+            DataRequired(),
+            Length(min=1, max=200)
+        ]
+    )
+
+    submit = SubmitField("Save")

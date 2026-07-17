@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+Edit Task
+{% endblock %}
+
+
+{% block content %}
+
+<div class="card shadow p-4">
+
+    <h2 class="mb-4">
+        Edit Task
+    </h2>
+
+
+    <form method="POST">
+
+        {{ form.hidden_tag() }}
+
+
+        <div class="mb-3">
+
+            {{ form.title.label(class="form-label") }}
+
+            {{ form.title(
+                class="form-control"
+            ) }}
+
+
+            {% for error in form.title.errors %}
+
+                <div class="text-danger small">
+                    {{ error }}
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+
+        {{ form.submit(class="btn btn-primary") }}
+
+        <a
+        href="{{ url_for('tasks.home') }}"
+        class="btn btn-secondary">
+            Cancel
+        </a>
+
+
+    </form>
+
+</div>
+
+{% endblock %}

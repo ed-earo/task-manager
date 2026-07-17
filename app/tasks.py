@@ -3,6 +3,7 @@ from flask_login import current_user, login_required
 
 from app.extensions import db
 from app.models import Task
+from app.forms import TaskForm
 
 tasks = Blueprint("tasks", __name__)
 
@@ -80,3 +81,47 @@ def delete_task(id):
     flash("Task deleted.", "info")
 
     return redirect(url_for("tasks.home"))
+
+@tasks.route("/edit/<int:id>", methods=["GET", "POST"])
+@login_required
+def edit_task(id):
+
+    task = Task.query.get_or_404(id)
+
+    if task.user_id != current_user.id:
+        flash(
+            "You are not allowed to edit this task.",
+            "danger"
+        )
+
+        return redirect(
+            url_for("tasks.home")
+        )
+
+
+    form = TaskForm()
+
+
+    if form.validate_on_submit():
+
+        task.title = form.title.data
+
+        db.session.commit()
+
+        flash(
+            "Task updated successfully!",
+            "success"
+        )
+
+        return redirect(
+            url_for("tasks.home")
+        )
+
+
+    form.title.data = task.title
+
+
+    return render_template(
+        "edit_task.html",
+        form=form
+    )
