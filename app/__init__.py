@@ -1,4 +1,5 @@
 from flask import Flask
+
 from app.extensions import db, login_manager
 
 
@@ -12,8 +13,7 @@ def create_app():
     db.init_app(app)
 
     login_manager.init_app(app)
-
-    login_manager.login_view = "main.login"
+    login_manager.login_view = "auth.login"
     login_manager.login_message = "Please log in to access this page."
     login_manager.login_message_category = "warning"
 
@@ -22,7 +22,10 @@ def create_app():
     with app.app_context():
         db.create_all()
 
-    from app.routes import main
-    app.register_blueprint(main)
+    from app.auth import auth
+    from app.tasks import tasks
+
+    app.register_blueprint(auth)
+    app.register_blueprint(tasks)
 
     return app

@@ -14,7 +14,7 @@ Tasks
     </h2>
 
 
-    <form action="{{ url_for('main.add_task') }}" method="POST" class="mb-4">
+    <form action="{{ url_for('tasks.add_task') }}" method="POST" class="mb-4">
 
         <div class="input-group">
 
@@ -54,7 +54,7 @@ Tasks
 
                 <a 
                 class="btn btn-sm btn-success"
-                href="{{ url_for('main.complete_task', id=task.id) }}">
+                href="{{ url_for('tasks.complete_task', id=task.id) }}">
                     {% if task.completed %}
                         Undo
                     {% else %}
@@ -65,7 +65,7 @@ Tasks
 
                 <a
                 class="btn btn-sm btn-danger"
-                href="{{ url_for('main.delete_task', id=task.id) }}">
+                href="{{ url_for('tasks.delete_task', id=task.id) }}">
                     Delete
                 </a>
 

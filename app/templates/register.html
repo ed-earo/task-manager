@@ -1,54 +1,53 @@
 {% extends "base.html" %}
 
-
 {% block title %}
 Register
 {% endblock %}
-
 
 {% block content %}
 
 <div class="card shadow p-4">
 
-    <h2 class="mb-4">
-        Create Account
-    </h2>
-
+    <h2 class="mb-4">Create Account</h2>
 
     <form method="POST">
 
-        <div class="mb-3">
-            <input
-                class="form-control"
-                name="username"
-                placeholder="Username"
-                required>
-        </div>
-
+        {{ form.hidden_tag() }}
 
         <div class="mb-3">
-            <input
-                class="form-control"
-                type="email"
-                name="email"
-                placeholder="Email"
-                required>
-        </div>
+            {{ form.username.label(class="form-label") }}
+            {{ form.username(class="form-control", placeholder="Username") }}
 
+            {% for error in form.username.errors %}
+                <div class="text-danger small mt-1">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </div>
 
         <div class="mb-3">
-            <input
-                class="form-control"
-                type="password"
-                name="password"
-                placeholder="Password"
-                required>
+            {{ form.email.label(class="form-label") }}
+            {{ form.email(class="form-control", placeholder="Email") }}
+
+            {% for error in form.email.errors %}
+                <div class="text-danger small mt-1">
+                    {{ error }}
+                </div>
+            {% endfor %}
         </div>
 
+        <div class="mb-3">
+            {{ form.password.label(class="form-label") }}
+            {{ form.password(class="form-control", placeholder="Password") }}
 
-        <button class="btn btn-primary">
-            Register
-        </button>
+            {% for error in form.password.errors %}
+                <div class="text-danger small mt-1">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </div>
+
+        {{ form.submit(class="btn btn-primary") }}
 
     </form>
 
